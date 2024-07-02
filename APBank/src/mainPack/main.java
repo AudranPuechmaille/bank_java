@@ -1,35 +1,47 @@
 package mainPack;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import components.Client;
+
 
 public class main 
 {
-	private static ArrayList<Client> clients;
-	
+	private static List<Client> clients;
+	 
 	public static void main(String[] args)
 	{
-		clients = loadClients();
-		displayClients();
+		clients = loadClients(3);
+		displayClients(clients);
 	}
 	
-	public static void displayClients()
-	{
-		for(Client client : clients)
-		{
-			System.out.println(client);
-		}
-	}
+	// Méthode qui génère le nombre d'objets clients-test passé en paramètre de la méthode. 
 	
-	public static ArrayList<Client> loadClients()
+	public static List<Client> loadClients(int numberOfClients)
 	{
-		ArrayList<Client> clients = new ArrayList<>();
+		List<Client> clients = new ArrayList<>();
 		
-		clients.add(new Client("Audran", "Puechmaille"));
-		clients.add(new Client("Jon", "Pif"));
-		clients.add(new Client("Claire", "Marshall"));
-		clients.add(new Client("Pierre", "Dumas"));
+		for(int i = 1; i <= numberOfClients; i++)
+		{
+			clients.add(new Client("Firstname" + i, "Name" + i));
+		}
 		
 		return clients;
 	}
+	
+	// Méthode qui affiche les données de l'ArrayList contenant les clients.
+	
+	public static void displayClients(List<Client> clients)
+	{
+		String clientsString = clients.stream()
+				.map(Client::toString)
+				.collect(Collectors.joining("\n"));
+		
+		System.out.println(clientsString);
+	}
+	
+	
+	
+	
 }
